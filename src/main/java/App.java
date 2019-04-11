@@ -1,14 +1,10 @@
 import entity.Author;
 import entity.Book;
 import entity.Plant;
-import org.xml.sax.SAXException;
 import util.DomParser;
 import util.StaxParser;
 import validator.ValidatorXml;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +36,8 @@ public class App {
 
         System.out.println("Модифицируем XML файл с растениями и сохраняем в отдельный XML");
 
-        new DomParser().modifyXml("src/main/resources/plant_catalog.xml", "modify.xml", 1, "COMMON", "changed field");
+        new DomParser().modifyXml("src/main/resources/plant_catalog.xml", "modify.xml", 1,
+                "COMMON", "changed field");
 
         System.out.println();
 
@@ -55,6 +52,6 @@ public class App {
                 333, "Обратный отсчет", "Питер"));
 
         new DomParser().createXmlWithXsd(bookList, "result.xml");
-        new ValidatorXml().validateXml("result.xml", "src/main/resources/books.xsd");
+        new ValidatorXml().validateXml("src/main/resources/result.xml", "src/main/resources/books.xsd");
     }
 }

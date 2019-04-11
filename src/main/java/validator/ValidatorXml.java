@@ -17,6 +17,8 @@ public class ValidatorXml {
 
     public boolean validateXml(String source, String xsdSchema) {
 
+        log.debug("Валидация документа " + source);
+
         Schema schema = null;
         try {
             SchemaFactory factory = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI);
@@ -24,11 +26,14 @@ public class ValidatorXml {
             Validator validator = schema.newValidator();
             validator.validate(new StreamSource(new File(source)));
             System.out.println("valid");
+            log.debug(source + " is valid");
             return true;
         } catch (SAXException e) {
             System.out.println("not valid");
+            log.debug(source + "is not valid");
             return false;
         } catch (IOException e) {
+            log.debug(source + " не найден");
             return false;
         }
     }

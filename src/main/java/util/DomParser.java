@@ -25,6 +25,8 @@ public class DomParser {
 
     public List<Plant> parseToList(String fileName) {
 
+        log.debug("Парсинг XML в лист");
+
         List<Plant> plantsList = new ArrayList<>();
         Plant plant = null;
         DOMParser parser = new DOMParser();
@@ -32,9 +34,9 @@ public class DomParser {
         try {
             parser.parse(fileName);
         } catch (SAXException e) {
-
+            log.debug(e.getMessage());
         } catch (IOException e) {
-
+            log.debug(e.getMessage());
         }
 
         Document document = parser.getDocument();
@@ -55,6 +57,7 @@ public class DomParser {
             plantsList.add(plant);
         }
 
+        log.debug("Парсинг прошел успешно");
         return plantsList;
     }
 
@@ -67,6 +70,8 @@ public class DomParser {
     }
 
     public void modifyXml(String source, String resultPath, int index, String field, String data) {
+
+        log.debug("Модификация xml файла");
 
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -84,17 +89,20 @@ public class DomParser {
                 }
             }
 
+            log.debug("Документ модифицирован");
             saveXml(document, resultPath);
         } catch (ParserConfigurationException e) {
-
+            log.debug(e.getMessage());
         } catch (SAXException e) {
-
+            log.debug(e.getMessage());
         } catch (IOException e) {
-
+            log.debug(e.getMessage());
         }
     }
 
     public void createXmlWithXsd(List<Book> books, String resultPath) {
+
+        log.debug("Создание XML файла");
 
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -135,6 +143,7 @@ public class DomParser {
                 element.appendChild(numberOfPages);
             }
 
+            log.debug("Документ создан");
             saveXml(document, resultPath);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -143,15 +152,18 @@ public class DomParser {
 
     private void saveXml(Document document, String resultPath) {
 
+        log.debug("Сохранение документа в XML");
+
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File("src/main/resources/" + resultPath));
             transformer.transform(domSource, streamResult);
         } catch (TransformerException e) {
-
+            log.debug(e.getMessage());
         }
 
+        log.debug("Документ сохранен");
         System.out.println("Документ сохранен");
     }
 
