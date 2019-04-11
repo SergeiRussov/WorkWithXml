@@ -41,17 +41,33 @@ public class DomParser {
 
         Document document = parser.getDocument();
         Element root = document.getDocumentElement();
+        log.info("Root " + root.getTagName());
+
         NodeList nodeList = root.getElementsByTagName("PLANT");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             plant = new Plant();
+            log.info("new Plant");
             Element plantElement = (Element) nodeList.item(i);
+
             plant.setCommon(getSingleChild(plantElement, "COMMON").getTextContent().trim());
+            log.info("COMMON " + getSingleChild(plantElement, "COMMON").getTextContent().trim());
+
             plant.setBotanical(getSingleChild(plantElement, "BOTANICAL").getTextContent().trim());
+            log.info("BOTANICAL " + getSingleChild(plantElement, "BOTANICAL").getTextContent().trim());
+
             plant.setZone(getSingleChild(plantElement, "ZONE").getTextContent().trim());
+            log.info("ZONE " + getSingleChild(plantElement, "ZONE").getTextContent().trim());
+
             plant.setLight(getSingleChild(plantElement, "LIGHT").getTextContent().trim());
+            log.info("LIGHT " + getSingleChild(plantElement, "LIGHT").getTextContent().trim());
+
             plant.setPrice(getSingleChild(plantElement, "PRICE").getTextContent().trim());
+            log.info("PRICE " + getSingleChild(plantElement, "PRICE").getTextContent().trim());
+
             plant.setAvailability(Long.parseLong(getSingleChild(plantElement, "AVAILABILITY")
+                    .getTextContent().trim()));
+            log.info("AVAILABILITY " + Long.parseLong(getSingleChild(plantElement, "AVAILABILITY")
                     .getTextContent().trim()));
 
             plantsList.add(plant);
